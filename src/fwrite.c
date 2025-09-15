@@ -201,6 +201,7 @@ void writeFloat64(const void *col, int64_t row, char **pch)
     *ch++ = '0';   // and we're done.  so much easier rather than passing back special cases
     if (forceDecimal) {
       *ch++ = dec;
+      *ch++ = '0';
     }
   } else {
     if (x < 0.0) { *ch++ = '-'; x = -x; }  // and we're done on sign, already written. no need to pass back sign
@@ -246,6 +247,7 @@ void writeFloat64(const void *col, int64_t row, char **pch)
       *ch++ = '0';
       if (forceDecimal) {
         *ch++ = dec;
+        *ch++ = '0';
       }
       // # nocov end
     } else {
@@ -268,7 +270,7 @@ void writeFloat64(const void *col, int64_t row, char **pch)
       }
       const bool isWholeNumber = (dr == 0 && dl0 >= 0);
       if (forceDecimal && isWholeNumber) { 
-        width += 1; 
+        width += 2; 
       }
       // So:  3.1416 => l=31416, sf=5, exp=0     dr=4; dl0=0; width=6
       //      30460  => l=3046, sf=4, exp=4      dr=0; dl0=1; width=5
@@ -284,6 +286,7 @@ void writeFloat64(const void *col, int64_t row, char **pch)
           *ch-- = dec;
         } else if (forceDecimal && isWholeNumber) {
           *ch-- = dec;
+          *ch-- = '0';
         }
         while (dl0) { *ch-- = '0'; dl0--; }
         while (sf) { *ch-- = '0' + l % 10; l /= 10; sf--; }
