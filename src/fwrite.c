@@ -299,7 +299,7 @@ void writeFloat64(const void *col, int64_t row, char **pch)
           *ch-- = '0' + l % 10;
           l /= 10;
         }
-        if (sf == 1) ch--; else *ch-- = dec;
+        if (sf == 1) ch--; else {*ch-- = '0'; *ch-- = dec;}
         *ch = '0' + l;
         ch += sf + (sf>1);
         *ch++ = 'e';  // lower case e to match base::write.csv
