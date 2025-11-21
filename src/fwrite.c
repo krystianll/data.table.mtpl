@@ -285,8 +285,8 @@ void writeFloat64(const void *col, int64_t row, char **pch)
           while (dr) { *ch-- = '0'; dr--; }
           *ch-- = dec;
         } else if (forceDecimal && isWholeNumber) {
-          *ch-- = dec;
           *ch-- = '0';
+          *ch-- = dec;
         }
         while (dl0) { *ch-- = '0'; dl0--; }
         while (sf) { *ch-- = '0' + l % 10; l /= 10; sf--; }
